@@ -39,6 +39,9 @@ Your applicants are stored only in your own browser. There is no account and no 
 
 UNOFFICIAL
 This is an independent tool. It is not made by or linked to the Government of India, the High Commission of India or IVAC. Always check your application before you submit it.
+
+DEVELOPER
+Developed by Amrita Chandra Das. Source and updates: https://github.com/amritadasbijoy/indian-visa-form-helper
 ```
 
 ### Description (Bangla) – paste only if you add Bangla as a second listing language
@@ -67,6 +70,9 @@ This is an independent tool. It is not made by or linked to the Government of In
 
 অনানুষ্ঠানিক
 এটি একটি স্বতন্ত্র টুল। ভারত সরকার, ভারতীয় হাইকমিশন বা IVAC-এর তৈরি নয় এবং তাদের সঙ্গে যুক্ত নয়। জমা দেওয়ার আগে সবসময় আবেদন যাচাই করুন।
+
+ডেভেলপার
+তৈরি করেছেন Amrita Chandra Das। সোর্স ও আপডেট: https://github.com/amritadasbijoy/indian-visa-form-helper
 ```
 
 ### Graphics

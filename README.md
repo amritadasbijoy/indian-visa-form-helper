@@ -83,6 +83,13 @@ A pre-commit hook (`.githooks/pre-commit` → `tools/check-private.mjs`) blocks 
 such as emails, phone, passport or NID numbers, IP addresses or API keys. Enable it after cloning with
 `git config core.hooksPath .githooks`. All names and numbers in this repository are made-up examples.
 
+## Author
+
+Designed and built by **Amrita Chandra Das** — Chrome extension, OCR, Node.js server and VPS deployment.
+
+- GitHub: [@amritadasbijoy](https://github.com/amritadasbijoy)
+- Chrome Web Store: [Indian Visa Form Helper](https://chromewebstore.google.com/detail/janilojppmedlpmlkheleblglanlmfpe) (publisher: Amrita Chandra Das)
+
 ## License
 
 Copyright © 2026 Amrita Chandra Das. All rights reserved. The source is published to show the work; it may not be copied,
