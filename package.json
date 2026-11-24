@@ -1,6 +1,6 @@
 {
   "name": "indian-visa-fill-helper",
-  "version": "1.0.76",
+  "version": "1.0.77",
   "private": true,
   "description": "Chrome extension that autofills the Indian visa application (Bangladesh missions).",
   "author": {

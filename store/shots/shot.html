@@ -29,12 +29,14 @@
   const n = new URLSearchParams(location.search).get('n') || '1';
   const SHOTS = {
     1: { tab: 'start', tag: 'Indian visa · Bangladesh', title: 'Fill the Indian visa form in minutes',
-         points: ['Every page filled from saved details', 'Tourist and Medical visas', 'All five missions in Bangladesh'] },
-    2: { tab: 'profiles', tag: 'Families and agencies', title: 'Enter each applicant once. Reuse every time.',
-         points: ['Passport scan reads the details', 'Photo and PDFs made the right size', 'Hotels, hospitals and references saved'] },
-    3: { tab: 'start', scroll: 'history', tag: 'After you submit', title: 'Keep track of every application',
-         points: ['Application PDF saved for each person', 'Visa status in one click', 'Resume an unfinished form'] },
-    4: { tab: 'start', lang: 'bn', tag: 'বাংলা ও English', title: 'বাংলা ও ইংরেজি — দুই ভাষাতেই',
+         points: ['Every page filled from saved details', 'Tourist and Medical visas, all five missions', 'Free to use'] },
+    2: { tab: 'profiles', tag: 'Passport scan', title: 'Drop in a passport. Get every detail.',
+         points: ['Reads names, dates, parents and address', 'Photo or PDF, colour or black and white', 'Enter each applicant once, reuse every time'] },
+    3: { tab: 'profiles', edit: true, find: 'addr-bar', tag: 'Families', title: 'One family, one address. Fill it in a click.',
+         points: ['Save a family address and reuse it', 'Dates in DD/MM/YYYY', 'Missing fields shown before you start'] },
+    4: { tab: 'start', find: 'history', tag: 'After you submit', title: 'Keep track of every application',
+         points: ['Application PDF kept for each person', 'Visa status in one click', 'Resume an unfinished form'] },
+    5: { tab: 'start', lang: 'bn', tag: 'বাংলা ও English', title: 'বাংলা ও ইংরেজি — দুই ভাষাতেই',
          points: ['ক্যাপচা ও চূড়ান্ত সাবমিট আপনার হাতে', 'সব তথ্য আপনার নিজের কম্পিউটারে', 'কোনো অ্যাকাউন্ট বা ট্র্যাকিং নেই'] },
   };
   const s = SHOTS[n];
@@ -47,10 +49,16 @@
   f.onload = () => setTimeout(() => {
     const d = f.contentDocument;
     d.querySelector(`[data-tab=${s.tab}]`)?.click();
-    if (s.scroll) setTimeout(() => {
-      const el = [...d.querySelectorAll('h2,h3,.card b,.card .t')].find(x => /history|ইতিহাস/i.test(x.textContent));
-      (el?.closest('.card') || el)?.scrollIntoView({ block: 'start' });
-    }, 400);
+    if (s.edit) setTimeout(() => [...d.querySelectorAll('button')].find(x => /^(Edit|এডিট|সম্পাদনা)$/.test(x.textContent.trim()))?.click(), 300);
+    if (s.find) setTimeout(() => {
+      let el = s.find === 'history'
+        ? [...d.querySelectorAll('h3')].find(x => /^(Application history|আবেদনের ইতিহাস)$/.test(x.textContent.trim()))?.closest('.card')
+        : d.querySelector('.' + s.find);
+      el?.scrollIntoView({ block: s.find === 'history' ? 'start' : 'center' });
+      // the panel's header and tabs stay on top: move the card below them
+      if (el && s.find === 'history') { const top = el.getBoundingClientRect().top, head = d.querySelector('header, nav, .tabs');
+        const below = head ? head.getBoundingClientRect().bottom + 40 : 130; [d.scrollingElement, el.closest('main, .content, .tab-body')].forEach(x => x && (x.scrollTop -= below - top)); }
+    }, 900);
   }, 600);
   f.src = '/tools/panel-harness.html?v=shot' + n;
 </script>

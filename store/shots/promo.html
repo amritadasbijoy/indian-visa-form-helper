@@ -3,22 +3,73 @@
 <head>
 <meta charset="utf-8">
 <title>Store promo tile</title>
-<!-- 440×280 small promo tile for the Chrome Web Store. -->
+<!-- 440×280 small promo tile for the Chrome Web Store (shown on search and category cards).
+     No flags or government emblems: the helper is unofficial. -->
 <style>
   html, body { margin: 0; width: 440px; height: 280px; overflow: hidden; }
-  body { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; color: #fff;
-    background: radial-gradient(500px 320px at 0% 0%, #1f6fd1 0%, #0b3d82 60%, #082a5c 100%);
-    display: flex; flex-direction: column; justify-content: center; padding: 0 36px; box-sizing: border-box; }
-  .top { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
-  img { width: 64px; height: 64px; }
-  .tag { font-size: 13px; background: rgba(255,255,255,.16); padding: 5px 10px; border-radius: 999px; }
-  h1 { font-size: 30px; line-height: 1.15; margin: 0 0 10px; font-weight: 750; }
-  p { margin: 0; font-size: 15px; color: #cfe0f8; }
+  body { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; color: #fff; position: relative;
+    background: radial-gradient(260px 220px at 85% 30%, rgba(80,170,255,.45), transparent 70%),
+                linear-gradient(135deg, #1565d8 0%, #0b3f8f 55%, #072a62 100%); }
+  /* soft dotted texture */
+  body::before { content: ""; position: absolute; inset: 0; opacity: .12;
+    background-image: radial-gradient(#fff 1px, transparent 1.2px); background-size: 14px 14px; }
+
+  .left { position: absolute; left: 24px; top: 22px; width: 232px; }
+  .brand { display: flex; align-items: center; gap: 8px; font-size: 12.5px; font-weight: 600; color: #d6e6ff; }
+  .brand img { width: 30px; height: 30px; }
+  h1 { margin: 12px 0 0; font-size: 33px; line-height: 1.02; font-weight: 850; letter-spacing: -.5px; }
+  h1 span { color: #ffd34d; }
+  .sub { margin: 8px 0 0; font-size: 14px; font-weight: 600; color: #e3eeff; }
+  .free { position: absolute; left: 24px; bottom: 20px; display: inline-flex; align-items: center; gap: 6px;
+    background: #ffc928; color: #3a2a00; font-weight: 850; font-size: 14px; padding: 7px 13px; border-radius: 999px;
+    box-shadow: 0 4px 12px rgba(0,0,0,.28); }
+  .chips { position: absolute; left: 24px; bottom: 58px; display: flex; gap: 6px; }
+  .chip { font-size: 11px; font-weight: 700; background: rgba(255,255,255,.16); border: 1px solid rgba(255,255,255,.25);
+    padding: 4px 8px; border-radius: 999px; white-space: nowrap; }
+
+  /* form card */
+  .form { position: absolute; right: 22px; top: 30px; width: 150px; height: 196px; background: #fff; border-radius: 12px;
+    box-shadow: 0 14px 30px rgba(0,0,0,.35); transform: rotate(4deg); padding: 12px 12px; box-sizing: border-box; color: #1f2937; }
+  .form .hd { height: 9px; width: 70%; background: #1565d8; border-radius: 4px; margin-bottom: 12px; }
+  .row { display: flex; align-items: center; gap: 7px; margin-bottom: 11px; }
+  .ok { flex: none; width: 15px; height: 15px; border-radius: 50%; background: #16a34a; display: grid; place-items: center; }
+  .ok::after { content: ""; width: 6px; height: 3px; border-left: 2px solid #fff; border-bottom: 2px solid #fff;
+    transform: rotate(-45deg) translate(1px,-1px); }
+  .line { height: 8px; border-radius: 4px; background: #dbe4f0; flex: 1; }
+  .btn { margin-top: 4px; height: 20px; border-radius: 6px; background: #16a34a; color: #fff; font-size: 10px; font-weight: 800;
+    display: grid; place-items: center; }
+
+  /* passport */
+  .pass { position: absolute; right: 128px; top: 150px; width: 78px; height: 104px; border-radius: 8px;
+    background: linear-gradient(160deg, #0f6b3a, #064e2a); box-shadow: 0 10px 22px rgba(0,0,0,.4); transform: rotate(-10deg);
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; }
+  .pass .seal { width: 30px; height: 30px; border-radius: 50%; border: 2px solid #e8c766; }
+  .pass .t { font-size: 8.5px; font-weight: 800; letter-spacing: 1.2px; color: #e8c766; }
+  .pass.in { right: 92px; top: 112px; transform: rotate(12deg); background: linear-gradient(160deg, #1d2f6b, #0d1a45); }
+  .pass .c { font-size: 7px; font-weight: 700; letter-spacing: .8px; color: #e8c766; opacity: .9; }
+  .scan { position: absolute; left: -6px; right: -6px; top: 44px; height: 3px; background: #5ff0ff;
+    box-shadow: 0 0 10px 3px rgba(95,240,255,.8); border-radius: 2px; }
 </style>
 </head>
 <body>
-  <div class="top"><img src="/extension/icons/icon128.png" alt=""><span class="tag">Bangladesh · Tourist & Medical</span></div>
-  <h1>Indian Visa<br>Form Helper</h1>
-  <p>Fill every page from saved details. Unofficial.</p>
+  <div class="left">
+    <div class="brand"><img src="/extension/icons/icon128.png" alt="">For Bangladesh applicants</div>
+    <h1>Indian Visa<br><span>Auto-Fill</span></h1>
+    <p class="sub">Every page filled in seconds</p>
+  </div>
+  <div class="chips"><span class="chip">📷 Passport scan</span><span class="chip">EN · বাংলা</span></div>
+  <div class="free">✓ FREE to use</div>
+
+  <div class="form">
+    <div class="hd"></div>
+    <div class="row"><span class="ok"></span><span class="line"></span></div>
+    <div class="row"><span class="ok"></span><span class="line" style="flex:.7"></span></div>
+    <div class="row"><span class="ok"></span><span class="line"></span></div>
+    <div class="row"><span class="ok"></span><span class="line" style="flex:.6"></span></div>
+    <div class="row"><span class="ok"></span><span class="line" style="flex:.85"></span></div>
+    <div class="btn">FILLED ✓</div>
+  </div>
+  <div class="pass in"><span class="t">INDIA</span><span class="seal"></span><span class="c">PASSPORT</span></div>
+  <div class="pass"><span class="t">BANGLADESH</span><span class="seal"></span><span class="c">PASSPORT</span><span class="scan"></span></div>
 </body>
 </html>

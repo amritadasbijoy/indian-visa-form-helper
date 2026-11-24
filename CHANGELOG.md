@@ -3,6 +3,10 @@
 The version is in `extension/manifest.json` and shows in the side panel header and the floating panel on the visa site.
 After reloading the extension in `chrome://extensions`, check that the number matches.
 
+## 1.0.77 — 2026-11-24
+- Dates in the application history, Temporary IDs and sync status now show as DD/MM/YYYY (time in 24 hours), like the rest of the panel, instead of following the computer's language (e.g. 11/18/2026).
+- Store: five new screenshots (`store/screenshots/1–5.png`: Start, passport scan, family address and dates, application history, Bangla) and a bolder small promo tile (`store/promo-440x280.png`).
+
 ## 1.0.76 — 2026-11-22
 - Confirmation page after submit: the PDF from the site's "Print Form" button is now caught on its way, downloaded as usual and kept in the applicant's history by itself — no second download, no "Add downloaded PDF" needed. If the site answers with anything other than a PDF, Print Form works exactly as before.
 - The floating panel there is short: "✅ Application submitted and saved to the history: <ID>. Click Print Form… Ready for the next application." The "Save application PDF" button is gone from that page (it is still in the history for older applications).

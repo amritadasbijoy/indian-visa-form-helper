@@ -954,7 +954,7 @@ async function refreshStart() {
       return h('div', { class: 'tempid' },
         h('div', {},
           h('code', { title: t('copyTip'), onclick: () => navigator.clipboard.writeText(x.id).then(() => toast(t('copied'))) }, x.id),
-          h('div', { style: 'color:var(--muted)' }, `${x.name} · ${new Date(x.at).toLocaleDateString()}${x.lastPage ? ' · ' + t('lastPage') + ': ' + x.lastPage : ''}`)),
+          h('div', { style: 'color:var(--muted)' }, `${x.name} · ${new Date(x.at).toLocaleDateString('en-GB')}${x.lastPage ? ' · ' + t('lastPage') + ': ' + x.lastPage : ''}`)),
         // A submitted application can't be resumed; one whose applicant was deleted has nobody to fill it with.
         owner && !x.appId ? h('button', { style: 'padding:3px 8px;font-size:12px;flex:0 0 auto', onclick: () => resumeApplication(owner, x) }, '↻ ' + t('resume')) : null,
         h('button', { class: 'danger', style: 'padding:3px 8px;font-size:12px;flex:0 0 auto', title: t('tempRemove'), onclick: () => removeTempIds(y => y.id === x.id).then(refreshStart) }, '✕'));
@@ -1111,7 +1111,7 @@ function tempIdsCard(p, list, rerender) {
   return h('div', { class: 'card' }, h('h3', {}, t('tempIdsFor')), ...mine.map(x => h('div', { class: 'tempid' },
     h('div', {},
       h('code', { title: t('copyTip'), onclick: () => navigator.clipboard.writeText(x.id).then(() => toast(t('copied'))) }, x.id),
-      h('div', { style: 'color:var(--muted)' }, `${new Date(x.at).toLocaleDateString()}${x.lastPage ? ' · ' + t('lastPage') + ': ' + x.lastPage : ''}`)),
+      h('div', { style: 'color:var(--muted)' }, `${new Date(x.at).toLocaleDateString('en-GB')}${x.lastPage ? ' · ' + t('lastPage') + ': ' + x.lastPage : ''}`)),
     x.appId ? null : h('button', { style: 'padding:3px 8px;font-size:12px', onclick: () => resumeApplication(p, x) }, '↻ ' + t('resume')),
     h('button', { class: 'danger', style: 'padding:3px 8px;font-size:12px', title: t('tempRemove'), onclick: () => removeTempIds(y => y.id === x.id).then(rerender) }, '✕'))));
 }
@@ -1156,8 +1156,8 @@ function appRow(a, rerender, withName = false) {
     h('div', {},
       withName ? h('div', { style: 'font-weight:600' }, a.name || '—') : null,
       h('code', { title: t('copyTip'), onclick: () => navigator.clipboard.writeText(a.id).then(() => toast(t('copied'))) }, a.id),
-      h('div', { style: 'color:var(--muted)' }, [mission, type, a.submittedAt ? t('appSubmitted') + ' ' + new Date(a.submittedAt).toLocaleDateString() : t('appAdded') + ' ' + new Date(a.at).toLocaleDateString()].filter(Boolean).join(' · ')),
-      h('div', {}, a.status ? [h('b', {}, t('appStatus') + ': '), a.status.text, h('span', { style: 'color:var(--muted)' }, ` (${t('appChecked')} ${new Date(a.status.at).toLocaleString()})`)] : h('span', { style: 'color:var(--muted)' }, t('appNoStatus'))),
+      h('div', { style: 'color:var(--muted)' }, [mission, type, a.submittedAt ? t('appSubmitted') + ' ' + new Date(a.submittedAt).toLocaleDateString('en-GB') : t('appAdded') + ' ' + new Date(a.at).toLocaleDateString('en-GB')].filter(Boolean).join(' · ')),
+      h('div', {}, a.status ? [h('b', {}, t('appStatus') + ': '), a.status.text, h('span', { style: 'color:var(--muted)' }, ` (${t('appChecked')} ${new Date(a.status.at).toLocaleString('en-GB', { dateStyle: 'short', timeStyle: 'short' })})`)] : h('span', { style: 'color:var(--muted)' }, t('appNoStatus'))),
       a.pdf ? h('div', { style: 'color:var(--muted)' }, `📄 ${a.pdf.name} · ${Math.round(a.pdf.size / 1024)} KB`) : null),
     h('div', { style: 'display:flex;gap:4px;flex-wrap:wrap' },
       h('button', { ...small, onclick: () => openSiteJob('status', a) }, '🔎 ' + t('appStatusBtn')),
@@ -1444,7 +1444,7 @@ const SYNC_KEYS = ['profiles', 'hotels', 'hospitals', 'contacts', 'tempIds', 'ap
 let syncPassword = null; // kept only while the panel is open
 
 function syncCard(st, save) {
-  const info = h('div', { class: 'note', hidden: !st.syncAt }, st.syncAt ? t('syncLast').replace('{when}', new Date(st.syncAt).toLocaleString()) : '');
+  const info = h('div', { class: 'note', hidden: !st.syncAt }, st.syncAt ? t('syncLast').replace('{when}', new Date(st.syncAt).toLocaleString('en-GB', { dateStyle: 'short', timeStyle: 'short' })) : '');
   return h('div', { class: 'card' },
     h('h3', {}, '🔄 ' + t('syncTitle')),
     h('div', { class: 'note' }, t('syncHelp')),

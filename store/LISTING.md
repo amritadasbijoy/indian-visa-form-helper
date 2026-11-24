@@ -24,12 +24,14 @@ WHAT IT DOES
 • Free passport scan: drag in a photo or PDF of the passport and the details are filled in for you (name, dates, passport and NID number, parents, spouse, address). Works with phone photos and grey copies.
 • Free hotel search by city, with real hotels and their phone numbers, ready to use as the place of stay.
 • Saves applicants, hotels, hospitals and references, so families and agencies can reuse them.
+• Save a family's address once and fill it for every member in one click. Dates are shown as DD/MM/YYYY.
 • Prepares the photo and PDF documents in the size the site accepts.
 • Checks everything before you start, so a captcha is never wasted on an application that would stop half-way.
 • Makes the Medical Visa Undertaking form ready to print and sign.
 • Keeps a history of Temporary IDs and Application IDs, saves the final application PDF and checks visa status in one click.
 • Try it straight away with a made-up example applicant.
 • English and Bangla interface.
+• Updates install by themselves from the Chrome Web Store.
 
 YOU STAY IN CONTROL
 The captcha and the final "Verified and Continue" are never automated: you check the application and submit it yourself. The Additional questions declaration and the document verification box can be ticked for you (Settings, with a countdown and Pause).
@@ -55,12 +57,14 @@ Developed by Amrita Chandra Das (https://amrita.bd). Source and updates: https:/
 • ফ্রি পাসপোর্ট স্ক্যান: পাসপোর্টের ছবি বা PDF টেনে আনুন, তথ্য নিজে থেকেই পূরণ হবে (নাম, তারিখ, পাসপোর্ট ও NID নম্বর, বাবা-মা, স্বামী/স্ত্রী, ঠিকানা)। ফোনের ছবি ও ধূসর কপিতেও কাজ করে।
 • শহর দিয়ে ফ্রি হোটেল খোঁজ, আসল হোটেল ও তাদের ফোন নম্বরসহ, থাকার জায়গা হিসেবে সরাসরি ব্যবহারযোগ্য।
 • আবেদনকারী, হোটেল, হাসপাতাল ও রেফারেন্স সংরক্ষণ করে, যাতে পরিবার ও এজেন্সি বারবার ব্যবহার করতে পারে।
+• পরিবারের ঠিকানা একবার সংরক্ষণ করুন, এক ক্লিকে সবার জন্য পূরণ করুন। তারিখ দেখায় দিন/মাস/বছর (DD/MM/YYYY) হিসেবে।
 • ছবি ও PDF ডকুমেন্ট সাইটের গ্রহণযোগ্য সাইজে তৈরি করে।
 • শুরুর আগে সব কিছু যাচাই করে, যাতে অর্ধেক পথে আটকে যাওয়া আবেদনে ক্যাপচা নষ্ট না হয়।
 • মেডিকেল ভিসার আন্ডারটেকিং ফর্ম প্রিন্ট ও সই করার জন্য তৈরি করে।
 • টেম্পোরারি আইডি ও অ্যাপ্লিকেশন আইডির ইতিহাস রাখে, চূড়ান্ত আবেদনের PDF সংরক্ষণ করে এবং এক ক্লিকে ভিসার অবস্থা দেখায়।
 • একটি বানানো উদাহরণ আবেদনকারী দিয়ে সাথে সাথে চেষ্টা করে দেখুন।
 • ইংরেজি ও বাংলা ইন্টারফেস।
+• Chrome Web Store থেকে নতুন ভার্সন নিজে থেকেই আপডেট হয়।
 
 নিয়ন্ত্রণ আপনার হাতে
 ক্যাপচা ও চূড়ান্ত "Verified and Continue" কখনো স্বয়ংক্রিয় নয়: আবেদন দেখে আপনি নিজে জমা দেবেন। Additional questions-এর ঘোষণা ও ডকুমেন্ট যাচাইয়ের বক্সে টিক আপনার হয়ে দেওয়া যায় (সেটিংস, কাউন্টডাউন ও Pause সহ)।
@@ -77,7 +81,7 @@ Developed by Amrita Chandra Das (https://amrita.bd). Source and updates: https:/
 
 ### Graphics
 - **Store icon 128×128:** `extension/icons/icon128.png`
-- **Screenshots 1280×800:** `store/screenshots/` (upload in number order)
+- **Screenshots 1280×800:** `store/screenshots/1.png … 5.png` (upload in number order; remake with `store/shots/shot.html?n=1…5`)
 - **Small promo tile 440×280:** `store/promo-440x280.png`
 
 ### Additional fields

@@ -45,7 +45,7 @@ https://indianvisa-bangladesh.nic.in for all Bangladesh missions: Dhaka, Chittag
 | Tester package | ✅ `dist/indian-visa-helper-v1.0.43.zip` | Contains the extension and TESTER-GUIDE.md; no keys, no applicant data |
 | Server passport scan (`/api/ocr`, RapidOCR container) | ✅ Live 2026-11-22 | Specimens + 3 real passport scans (identity fields 3/3; spaces sometimes missing in names/addresses) |
 | Helper server (ivh.techistbd.com) | ✅ Live 2026-11-21 (Cloudflare A record `ivh`, DNS only; HTTPS certificate by Caddy) | Site check passed on all 4 public pages; admin over Tailscale tested; field-map download tested against a local copy of the server |
-| Chrome Web Store | ✅ v1.0.55 published 2026-11-21 (Public; first version 1.0.28 on 2026-11-17). Next upload: the latest `dist/indian-visa-helper-store-v<version>.zip` (1.0.56+ adds Web Store auto-update, DD/MM/YYYY dates, family addresses, final-page fixes). Item ID `janilojppmedlpmlkheleblglanlmfpe`, https://chromewebstore.google.com/detail/janilojppmedlpmlkheleblglanlmfpe | `dist/indian-visa-helper-store-v1.0.28.zip`, listing text and answers in `store/LISTING.md`, privacy policy `store/privacy-policy.html` (must be hosted at a public URL), screenshots `store/screenshots/`, promo tile `store/promo-440x280.png`, store icon `store/store-icon-128.png`, promo video `store/promo-video.mp4` (store needs it as a YouTube link). |
+| Chrome Web Store | ✅ v1.0.55 published 2026-11-21 (Public; first version 1.0.28 on 2026-11-17). Next upload: the latest `dist/indian-visa-helper-store-v<version>.zip` (1.0.77 submitted for review 2026-11-24, with 5 new screenshots, a new promo tile and the updated description) (1.0.56+ adds Web Store auto-update, DD/MM/YYYY dates, family addresses, final-page fixes). Item ID `janilojppmedlpmlkheleblglanlmfpe`, https://chromewebstore.google.com/detail/janilojppmedlpmlkheleblglanlmfpe | `dist/indian-visa-helper-store-v1.0.28.zip`, listing text and answers in `store/LISTING.md`, privacy policy `store/privacy-policy.html` (must be hosted at a public URL), screenshots `store/screenshots/`, promo tile `store/promo-440x280.png`, store icon `store/store-icon-128.png`, promo video `store/promo-video.mp4` (store needs it as a YouTube link). |
 
 ---
 
@@ -206,7 +206,7 @@ tools/
    - **Content scripts:** the simulated pages in `tools/sim/`.
    - **Real site:** reload the extension in `chrome://extensions` and use a test application with dummy data. Never submit the final page.
 4. Build the tester package with `npm run zip`. The result is in `dist/`: the tester zip and the store zip (`indian-visa-helper-store-v<version>.zip`, upload this one to the Chrome Web Store).
-   Store images: with the local server running, `store/shots/shot.html?n=1…4` and `store/shots/promo.html` render the screenshots with made-up data (`store/shots/seed.js`); capture them at 1280×800 and 440×280 with headless Chrome.
+   Store images: with the local server running, `store/shots/shot.html?n=1…5` and `store/shots/promo.html` render the screenshots with made-up data (`store/shots/seed.js`); capture them at 1280×800 and 440×280 with headless Chrome.
 5. Testers: unzip, then **Load unpacked** the `indian-visa-helper` folder.
 
 Fresh checkout: run `npm install` and then `npm run vendor` before loading the extension.
