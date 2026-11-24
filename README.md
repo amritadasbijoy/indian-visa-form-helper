@@ -85,5 +85,5 @@ such as emails, phone, passport or NID numbers, IP addresses or API keys. Enable
 
 ## License
 
-Copyright © 2026 TechistBD. All rights reserved. The source is published to show the work; it may not be copied,
+Copyright © 2026 Amrita Chandra Das. All rights reserved. The source is published to show the work; it may not be copied,
 modified or redistributed without written permission. See [LICENSE](LICENSE).
