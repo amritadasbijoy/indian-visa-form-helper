@@ -5,14 +5,25 @@ A Chrome extension (Manifest V3) that fills the official Indian visa application
 Medical visas at all five Indian missions in Bangladesh — plus a small helper server for free passport OCR and hotel
 search. English and Bangla interface.
 
-**[Get it on the Chrome Web Store](https://chromewebstore.google.com/detail/janilojppmedlpmlkheleblglanlmfpe)** ·
-Unofficial: not made by or linked to the Government of India.
+[![Install from the Chrome Web Store](https://img.shields.io/badge/Install%20from%20the-Chrome%20Web%20Store-1a73e8?style=for-the-badge&logo=googlechrome&logoColor=white)](https://chromewebstore.google.com/detail/janilojppmedlpmlkheleblglanlmfpe)
+
+Free to use · Unofficial: not made by or linked to the Government of India.
 
 ![Start screen](store/screenshots/1.png)
 
 | | |
 |---|---|
 | ![](store/screenshots/2.png) | ![](store/screenshots/3.png) |
+
+## Install
+
+1. Open the **[Chrome Web Store page](https://chromewebstore.google.com/detail/janilojppmedlpmlkheleblglanlmfpe)** in
+   Google Chrome (or Edge, Brave and other Chromium browsers).
+2. Click **Add to Chrome**, then **Add extension**.
+3. Click the puzzle icon in the toolbar and pin **Indian Visa Form Helper**; click it to open the side panel.
+4. To try it at once: Settings → **Try it with example data**.
+
+Updates install by themselves. Everything except the optional AI scan is free.
 
 ## What it does
 
