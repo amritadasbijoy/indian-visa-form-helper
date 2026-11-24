@@ -19,3 +19,6 @@ server/public/privacy.html
 # Local machine files
 .DS_Store
 .claude/settings.local.json
+
+# Drafts for other places (not part of this repository)
+drafts/

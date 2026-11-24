@@ -3,7 +3,10 @@
   "version": "1.0.76",
   "private": true,
   "description": "Chrome extension that autofills the Indian visa application (Bangladesh missions).",
-  "author": "Amrita Chandra Das",
+  "author": {
+    "name": "Amrita Chandra Das",
+    "url": "https://amrita.bd"
+  },
   "license": "UNLICENSED",
   "scripts": {
     "vendor": "node tools/vendor.mjs",
@@ -17,5 +20,6 @@
     "tesseract.js": "^5.1.1",
     "tesseract.js-core": "^5.1.1"
   },
-  "type": "module"
+  "type": "module",
+  "homepage": "https://github.com/amritadasbijoy/indian-visa-form-helper"
 }
