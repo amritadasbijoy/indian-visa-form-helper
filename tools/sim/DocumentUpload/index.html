@@ -1,0 +1,38 @@
+<!doctype html>
+<!-- Dev-only stand-in for the visa site's Medical "DocumentUpload" page (15 rows). Uploads are remembered in
+     localStorage ("sim-uploaded") and the page reloads after each one, like the real site. -->
+<html><head><meta charset="utf-8"><title>Sim DocumentUpload</title>
+<script src="/tools/chrome-mock.js"></script></head><body>
+<p>Document to be uploaded for Temporary Application Id:-SIMTEST0000002</p>
+<form onsubmit="return false"><table id="t"><tr><th>Serial No.</th><th>Document description</th><th>Upload</th><th>Status</th></tr></table>
+<p><input type="checkbox" id="verify"> I have verified that all the documents are uploaded as per the requirement. I will also submit hard-copy all the uploaded documents along with the print of application to submit to the concerning Indian Mission or Agency for processing of visa application.</p>
+<input type="button" value="Confirm" onclick="if(!document.getElementById('verify').checked){alert('Please tick the box');return;} location.search='?confirmed=1';"></form>
+<script>
+const ROWS = ["Copy of Passport page containing personal particulars <b>(Mandatory)</b>", "Relevant letters signed and stamped from the hospital concerned in India should be provided on the letter head of the hospital/organisation with applicant's details. The letter should be addressed to the concerned Mission/Post <b>(Mandatory)</b>", "Duly filled Medical Visa Undertaking <b>(Mandatory)</b>", "Address proof <b>(optional)</b>", "Confirmed To and Fro travel tickets <b>(optional)</b>", "Copy National ID Card or equivalent document <b>(optional)</b>", "If the applicant is of Indian origin (born Indian) and has held an Indian passport in the past. A copy of their 'Surrender Certificate' A copy of their cancelled Indian passport. <b>(optional)</b>", "A copy of the 'Nationality Certificate' specifying that they have obtained their current nationality by naturalizahon/birth. <b>(optional)</b>", "Copy of other nationality passport in case of double nationality. <b>(optional)</b>", "Recent utility bill or Bank statement with name and address of applicant printed on it for proof of residence <b>(optional)</b>", "<b>(optional)</b>", "Proof of availability of sufficient funds for medical &amp; living expenses in India/Salary certificate/sponsorship letter <b>(optional)</b>", "Letter from doctor/hospital certifying the requirement of an attendant. (Medical Attendant) <b>(optional)</b>", "documents relating to the medical treatment of patient ( Medical Attendant) <b>(optional)</b>", "Previous medical records of patient. <b>(optional)</b>"];
+const up = JSON.parse(localStorage.getItem('sim-uploaded') || '{}');
+const t = document.getElementById('t');
+ROWS.forEach((d, i) => {
+  const n = i + 1, tr = t.insertRow();
+  tr.insertCell().textContent = n;
+  tr.insertCell().innerHTML = d;
+  const c = tr.insertCell();
+  if (up[n]) c.innerHTML = '<input type="submit" value="View"> <input type="button" value="Re-upload">';
+  else {
+    c.innerHTML = '<input type="file" name="mFile"> <input type="submit" value="Upload Document">';
+    c.querySelector('[type=submit]').onclick = () => {
+      const f = c.querySelector('[type=file]').files[0];
+      if (!f) { alert('choose a file'); return; }
+      up[n] = f.name; localStorage.setItem('sim-uploaded', JSON.stringify(up));
+      setTimeout(() => location.reload(), 300);
+    };
+  }
+  tr.insertCell().textContent = up[n] ? 'Uploaded' : '';
+});
+</script>
+<script src="/extension/shared/constants.js"></script>
+<script src="/extension/shared/util.js"></script>
+<script src="/extension/shared/i18n.js"></script>
+<script src="/extension/content/pages.js"></script>
+<script src="/extension/content/bridge.js"></script>
+<script src="/extension/content/content.js"></script>
+</body></html>

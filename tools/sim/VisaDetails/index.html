@@ -1,0 +1,33 @@
+<!doctype html>
+<!-- Dev-only stand-in for the visa site's Medical "VisaDetails" page: service fields + a fake invitation lookup. -->
+<html><head><meta charset="utf-8"><title>Sim VisaDetails</title>
+<script src="/tools/chrome-mock.js"></script>
+<script>
+  // Mirrors the site's fetchHospitalData: fills and hides hospital fields, never the email.
+  function fetchHospitalData(no) {
+    // Like the site: drop the previous bold copies, then add one after each field when the answer arrives.
+    document.querySelectorAll('.med_cert_no_extra_class').forEach(e => e.remove());
+    setTimeout(() => {
+      if (no !== 'M2208264J8GX') { alert('No record found corresponding to this medical invitation letter number.'); return; }
+      const set = (id, v) => { const e = document.getElementById(id); e.value = v; e.style.display = 'none'; e.insertAdjacentHTML('afterend', '<span class="med_cert_no_extra_class"><b>' + v + '</b></span>'); };
+      set('visa_serreq_id_125', 'PEERLESS HOSPITEX HOSPITAL AND RESEARCH CENTER LTD');
+      set('visa_serreq_id_126', '360, Panchasayar, Kolkata-94');
+      set('visa_serreq_id_127', 'DR.S.N.BISWAS');
+      set('visa_serreq_id_128', '03340111222');
+    }, 300);
+  }
+</script></head><body>
+<p>Temporary Application ID : SIMTEST0000001</p>
+<form>
+<div class="row"><div class="col-31">Hospital in India</div><input type="hidden" name="service_req_form_values"></div>
+<div class="row"><div class="col-31 mandatory">Medical Certificate No</div><input name="service_req_form_values" id="visa_serreq_id_133" maxlength="50" onblur="fetchHospitalData(this.value)"></div>
+<div class="row"><div class="col-31 mandatory">Hospital Name</div><input name="service_req_form_values" id="visa_serreq_id_125" maxlength="50"></div>
+<div class="row"><div class="col-31 mandatory">Address</div><input name="service_req_form_values" id="visa_serreq_id_126" maxlength="50"></div>
+<div class="row"><div class="col-31 mandatory">Doctor Name</div><input name="service_req_form_values" id="visa_serreq_id_127" maxlength="50"></div>
+<div class="row"><div class="col-31 mandatory">Phone/Fax</div><input name="service_req_form_values" id="visa_serreq_id_128" maxlength="50"></div>
+<div class="row"><div class="col-31 mandatory">Email ID</div><input name="service_req_form_values" id="visa_serreq_id_135" maxlength="50"></div>
+<div class="row"><div class="col-31 mandatory">Residence Hospital Name</div><input name="service_req_form_values" id="visa_serreq_id_129" maxlength="50"></div>
+<div class="row"><div class="col-31 mandatory">Residence Email</div><input name="service_req_form_values" id="visa_serreq_id_134" maxlength="50"></div>
+<div class="row"><div class="col-31 mandatory">Nature of Illness</div><input name="service_req_form_values" id="visa_serreq_id_124" maxlength="50"></div>
+</form>
+</body></html>

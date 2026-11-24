@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Applicant details form – Visa Form Helper</title>
+<meta name="description" content="Fill your Indian visa details on your phone and send the file to your family member or agency. Nothing is uploaded.">
+<style>
+  :root { --text: #1d2330; --muted: #5b6475; --line: #dfe3ea; --bg: #f4f6fa; --card: #fff; --accent: #0b5cad; --err: #b42318; }
+  @media (prefers-color-scheme: dark) { :root { --text: #e7eaf0; --muted: #a3abba; --line: #2c3240; --bg: #12151b; --card: #1a1e26; --accent: #6aa8ff; --err: #f87171; } }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.5 system-ui, -apple-system, "Segoe UI", "Noto Sans Bengali", sans-serif; }
+  main { max-width: 640px; margin: 0 auto; padding: 20px 16px 60px; }
+  h1 { font-size: 24px; margin: 0 0 6px; }
+  .lead { color: var(--muted); margin: 0 0 16px; }
+  fieldset { border: 1px solid var(--line); background: var(--card); border-radius: 14px; padding: 12px 14px 4px; margin: 0 0 14px; }
+  legend { font-weight: 700; padding: 0 6px; }
+  label { display: block; margin-bottom: 12px; font-size: 14px; color: var(--muted); }
+  label b { color: var(--err); }
+  input, select { display: block; width: 100%; margin-top: 4px; padding: 10px; font: inherit; color: var(--text); background: var(--bg); border: 1px solid var(--line); border-radius: 10px; }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 0 10px; }
+  @media (max-width: 420px) { .two { grid-template-columns: 1fr; } }
+  button { font: inherit; font-weight: 700; padding: 13px 18px; border-radius: 12px; border: 0; background: var(--accent); color: #fff; width: 100%; cursor: pointer; }
+  .note { background: var(--card); border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: 10px; padding: 10px 12px; margin: 0 0 14px; font-size: 14px; }
+  .err { color: var(--err); font-size: 14px; min-height: 1.4em; }
+  #photoPrev { width: 96px; height: 96px; object-fit: cover; border-radius: 8px; border: 1px solid var(--line); display: none; margin-top: 6px; }
+  .lang { float: right; font-size: 14px; }
+  .lang a { color: var(--accent); cursor: pointer; }
+</style>
+</head>
+<body>
+<main>
+  <div class="lang"><a id="langBtn">English</a></div>
+  <h1 data-t="title"></h1>
+  <p class="lead" data-t="lead"></p>
+  <div class="note" data-t="privacy"></div>
+  <form id="f" novalidate></form>
+  <p class="err" id="err"></p>
+  <button id="save" type="button" data-t="save"></button>
+  <p class="lead" style="margin-top:14px" data-t="after"></p>
+</main>
+<script>
+// Everything stays on this phone: the form only builds a file that the applicant sends on (WhatsApp, email …).
+// The file is a Visa Helper backup with one applicant; the receiver opens it with Settings → Import data.
+const T = {
+  bn: {
+    title: 'ভিসার জন্য আবেদনকারীর তথ্য', lead: 'নিচের তথ্য পাসপোর্ট দেখে ইংরেজিতে লিখুন। শেষে "ফাইল সেভ করুন" চাপুন, তারপর ফাইলটি যিনি আবেদন করবেন তাঁকে (পরিবার বা এজেন্সি) পাঠান।',
+    privacy: 'আপনার তথ্য কোথাও আপলোড হয় না: ফাইলটি শুধু এই ফোনে তৈরি হয়।', save: 'ফাইল সেভ করুন', after: 'ফাইল পেলে আবেদনকারী Visa Helper-এ সেটিংস → "ডেটা ইমপোর্ট" দিয়ে খুলবেন।',
+    need: 'এগুলো পূরণ করুন:', saved: 'ফাইল সেভ হয়েছে। এখন এটি পাঠান।',
+    personal: 'ব্যক্তিগত তথ্য', passport: 'পাসপোর্ট', address: 'বর্তমান ঠিকানা ও যোগাযোগ', family: 'পরিবার', work: 'পেশা', photo: 'ছবি (ঐচ্ছিক)',
+  },
+  en: {
+    title: 'Applicant details for an Indian visa', lead: 'Fill this in English, exactly as in the passport. Then tap "Save file" and send the file to the person applying for you (family or agency).',
+    privacy: 'Nothing is uploaded: the file is made on this phone only.', save: 'Save file', after: 'The receiver opens the file in Visa Helper with Settings → "Import data".',
+    need: 'Please fill in:', saved: 'File saved. Now send it.',
+    personal: 'Personal details', passport: 'Passport', address: 'Present address and contact', family: 'Family', work: 'Occupation', photo: 'Photo (optional)',
+  },
+};
+const RELIGIONS = ['HINDU', 'ISLAM', 'BUDDHISM', 'CHRISTIAN', 'BAHAI', 'JAINISM', 'JUDAISM', 'PARSI', 'SIKH', 'ZOROASTRIAN', 'OTHERS'];
+const EDUCATION = ['BELOW MATRICULATION', 'MATRICULATION', 'HIGHER SECONDARY', 'GRADUATE', 'POST GRADUATE', 'PROFESSIONAL', 'NA BEING MINOR', 'ILLITERATE', 'OTHERS'];
+const OCCUPATIONS = ['AIR FORCE', 'BUSINESS PERSON', 'CAMERAMAN', 'CHARITY/SOCIAL WORKER', 'CHARTERED ACCOUNTANT', 'COLLEGE/UNIVERSITY TEACHER', 'DIPLOMAT', 'DOCTOR', 'ENGINEER', 'FILM PRODUCER', 'GOVERNMENT SERVICE', 'HOUSE WIFE', 'JOURNALIST', 'LABOUR', 'LAWYER', 'MEDIA', 'MILITARY', 'MISSIONARY', 'NAVY', 'NEWS BROADCASTER', 'OFFICIAL', 'OTHERS', 'POLICE', 'PRESS', 'PRIVATE SERVICE', 'PUBLISHER', 'REPORTER', 'RESEARCHER', 'RETIRED', 'SEA MAN', 'SELF EMPLOYED/ FREELANCER', 'STUDENT', 'TRADER', 'TV PRODUCER', 'UN-EMPLOYED', 'UN OFFICIAL', 'WORKER', 'WRITER'];
+// [key, English, Bangla, type/options, required]
+const GROUPS = [
+  ['personal', [
+    ['visaType', 'Visa type', 'ভিসার ধরন', [['tourist', 'Tourist / ট্যুরিস্ট'], ['medical', 'Medical / মেডিকেল']], 1],
+    ['surname', 'Surname', 'নামের শেষ অংশ (Surname)', 'text', 1], ['givenName', 'Given name', 'নামের প্রথম অংশ (Given name)', 'text', 1],
+    ['gender', 'Gender', 'লিঙ্গ', [['M', 'MALE'], ['F', 'FEMALE'], ['X', 'TRANSGENDER']], 1],
+    ['dob', 'Date of birth', 'জন্মতারিখ', 'date', 1], ['birthPlace', 'Place of birth (town/city)', 'জন্মস্থান (শহর)', 'text', 1],
+    ['nationalId', 'National ID number', 'জাতীয় পরিচয়পত্র নম্বর', 'text', 0],
+    ['religion', 'Religion', 'ধর্ম', RELIGIONS, 1], ['education', 'Education', 'শিক্ষাগত যোগ্যতা', EDUCATION, 1],
+    ['identMarks', 'Visible identification marks', 'দৃশ্যমান চিহ্ন', 'text', 0],
+  ]],
+  ['passport', [
+    ['passportNo', 'Passport number', 'পাসপোর্ট নম্বর', 'text', 1], ['passportIssuePlace', 'Place of issue', 'ইস্যুর স্থান', 'text', 1],
+    ['passportIssueDate', 'Date of issue', 'ইস্যুর তারিখ', 'date', 1], ['passportExpiry', 'Date of expiry', 'মেয়াদ শেষের তারিখ', 'date', 1],
+  ]],
+  ['address', [
+    ['presAdd1', 'House / road / village', 'বাসা / রোড / গ্রাম', 'text', 1], ['presAdd2', 'Area / thana / post office', 'এলাকা / থানা / ডাকঘর', 'text', 0],
+    ['presDistrict', 'District', 'জেলা', 'text', 1], ['presPostal', 'Postcode', 'পোস্টকোড', 'text', 0],
+    ['mobile', 'Mobile number', 'মোবাইল নম্বর', 'tel', 1], ['email', 'Email', 'ইমেইল', 'email', 0],
+  ]],
+  ['family', [
+    ['fatherName', "Father's name", 'পিতার নাম', 'text', 1], ['fatherBirthPlace', "Father's place of birth", 'পিতার জন্মস্থান', 'text', 0],
+    ['motherName', "Mother's name", 'মাতার নাম', 'text', 1], ['motherBirthPlace', "Mother's place of birth", 'মাতার জন্মস্থান', 'text', 0],
+    ['maritalStatus', 'Marital status', 'বৈবাহিক অবস্থা', [['SINGLE', 'SINGLE'], ['MARRIED', 'MARRIED']], 1],
+    ['spouseName', "Spouse's name", 'স্বামী/স্ত্রীর নাম', 'text', 0], ['spouseBirthPlace', "Spouse's place of birth", 'স্বামী/স্ত্রীর জন্মস্থান', 'text', 0],
+  ]],
+  ['work', [
+    ['occupation', 'Present occupation', 'বর্তমান পেশা', OCCUPATIONS, 1], ['empName', 'Employer / business name', 'প্রতিষ্ঠান / ব্যবসার নাম', 'text', 0],
+    ['empDesignation', 'Designation', 'পদবি', 'text', 0], ['empAddress', 'Employer address', 'প্রতিষ্ঠানের ঠিকানা', 'text', 0],
+  ]],
+];
+let lang = 'bn';
+const form = document.getElementById('f');
+const values = {};
+let photo = '';
+
+function build() {
+  form.replaceChildren();
+  for (const [group, fields] of GROUPS) {
+    const fs = document.createElement('fieldset');
+    fs.innerHTML = `<legend>${T[lang][group]}</legend>`;
+    const grid = document.createElement('div');
+    grid.className = 'two';
+    for (const [k, en, bn, type, req] of fields) {
+      const label = document.createElement('label');
+      label.textContent = lang === 'bn' ? bn : en;
+      if (req) label.insertAdjacentHTML('beforeend', ' <b>*</b>');
+      let input;
+      if (Array.isArray(type)) {
+        input = document.createElement('select');
+        input.append(new Option('—', ''), ...type.map(o => (Array.isArray(o) ? new Option(o[1], o[0]) : new Option(o, o))));
+      } else {
+        input = document.createElement('input');
+        input.type = type;
+        if (type === 'text') input.autocapitalize = 'characters';
+      }
+      input.name = k;
+      input.value = values[k] || '';
+      input.oninput = input.onchange = () => { values[k] = input.value; };
+      label.append(input);
+      grid.append(label);
+    }
+    fs.append(grid);
+    form.append(fs);
+  }
+  const fs = document.createElement('fieldset');
+  fs.innerHTML = `<legend>${T[lang].photo}</legend><label>${lang === 'bn' ? 'সাদা ব্যাকগ্রাউন্ডে সামনে থেকে তোলা ছবি' : 'Front-facing, white background'}<input type="file" accept="image/*" id="photo"></label><img id="photoPrev" alt="">`;
+  form.append(fs);
+  fs.querySelector('#photo').onchange = e => makePhoto(e.target.files[0]);
+  if (photo) { const p = fs.querySelector('#photoPrev'); p.src = photo; p.style.display = 'block'; }
+  document.querySelectorAll('[data-t]').forEach(el => { el.textContent = T[lang][el.dataset.t]; });
+  document.getElementById('langBtn').textContent = lang === 'bn' ? 'English' : 'বাংলা';
+  document.documentElement.lang = lang;
+}
+
+// Square 350 px JPEG, like the extension's photo crop (centre crop; it can be adjusted later in the extension).
+async function makePhoto(file) {
+  if (!file) return;
+  const img = new Image();
+  img.src = URL.createObjectURL(file);
+  await img.decode();
+  const c = document.createElement('canvas');
+  c.width = c.height = 350;
+  const s = Math.min(img.naturalWidth, img.naturalHeight);
+  const g = c.getContext('2d');
+  g.fillStyle = '#fff';
+  g.fillRect(0, 0, 350, 350);
+  g.drawImage(img, (img.naturalWidth - s) / 2, (img.naturalHeight - s) / 2, s, s, 0, 0, 350, 350);
+  photo = c.toDataURL('image/jpeg', 0.85);
+  const p = document.getElementById('photoPrev');
+  p.src = photo;
+  p.style.display = 'block';
+}
+
+document.getElementById('langBtn').onclick = () => { lang = lang === 'bn' ? 'en' : 'bn'; build(); };
+document.getElementById('save').onclick = () => {
+  const missing = [];
+  for (const [, fields] of GROUPS) for (const [k, en, bn, , req] of fields) if (req && !String(values[k] || '').trim()) missing.push(lang === 'bn' ? bn : en);
+  if (values.maritalStatus === 'MARRIED' && !values.spouseName) missing.push(lang === 'bn' ? 'স্বামী/স্ত্রীর নাম' : "Spouse's name");
+  const err = document.getElementById('err');
+  if (missing.length) { err.textContent = `${T[lang].need} ${missing.join(', ')}`; return; }
+  err.textContent = '';
+  const p = { id: 'fam-' + crypto.randomUUID(), updatedAt: Date.now(), source: 'family-form' };
+  for (const [k, v] of Object.entries(values)) {
+    const val = String(v).replace(/\s+/g, ' ').trim();
+    if (val) p[k] = ['email', 'visaType', 'dob', 'passportIssueDate', 'passportExpiry', 'gender', 'maritalStatus'].includes(k) ? (k === 'email' ? val.toLowerCase() : val) : val.toUpperCase();
+  }
+  if (photo) p.photo = photo;
+  const data = { app: 'indian-visa-helper', version: 1, exportedAt: new Date().toISOString(), profiles: [p] };
+  const name = `visa-details-${(p.givenName || '') + '-' + (p.surname || '')}`.replace(/[^A-Za-z0-9-]+/g, '-').toLowerCase() + '.json';
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([JSON.stringify(data)], { type: 'application/json' }));
+  a.download = name;
+  a.click();
+  err.style.color = 'inherit';
+  err.textContent = T[lang].saved;
+};
+build();
+</script>
+</body>
+</html>

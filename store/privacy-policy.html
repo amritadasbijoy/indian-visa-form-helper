@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy Policy – Indian Visa Form Helper</title>
+<style>
+  :root { --text: #1d2330; --muted: #5b6475; --line: #e3e6ec; --bg: #fff; --accent: #0b5cad; }
+  @media (prefers-color-scheme: dark) { :root { --text: #e7eaf0; --muted: #a3abba; --line: #2c3240; --bg: #14171d; --accent: #6aa8ff; } }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.6 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  main { max-width: 760px; margin: 0 auto; padding: 32px 16px 64px; }
+  h1 { font-size: 1.7rem; margin: 0 0 4px; }
+  h2 { font-size: 1.15rem; margin: 32px 0 8px; padding-top: 16px; border-top: 1px solid var(--line); }
+  .muted { color: var(--muted); }
+  a { color: var(--accent); }
+  ul { padding-left: 20px; }
+  .bn { font-family: "Noto Sans Bengali", "Hind Siliguri", system-ui, sans-serif; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Privacy Policy</h1>
+  <p class="muted">Indian Visa Form Helper – Bangladesh (Unofficial) · Last updated: 21 November 2026</p>
+
+  <p>This Chrome extension helps people in Bangladesh fill the Indian visa application at
+  <a href="https://indianvisa-bangladesh.nic.in">indianvisa-bangladesh.nic.in</a>. It is an unofficial tool. It is not made by,
+  linked to or approved by the Government of India, the High Commission of India or IVAC.</p>
+
+  <h2>What data the extension handles</h2>
+  <p>You type or scan the details the visa form asks for. These can include:</p>
+  <ul>
+    <li>names, date and place of birth, addresses, phone numbers and email addresses;</li>
+    <li>passport details, national ID number, family and marital details;</li>
+    <li>the applicant's photo, passport scans and supporting documents (PDF);</li>
+    <li>trip details: dates, ports, hotels, hospitals and references;</li>
+    <li>Temporary IDs, Application IDs and the status of submitted applications.</li>
+  </ul>
+
+  <h2>Where the data is kept</h2>
+  <p>All data is stored only in your own browser, in Chrome's extension storage on your computer. The developer does
+  not keep a copy of your applicants: the helper server (below) only reads what you send it for a scan or a search and
+  stores none of it. There is no account, no analytics and no tracking.</p>
+  <p>Removing the extension deletes this data. You can also delete applicants and records inside the extension at any time.
+  Backups are files you save yourself; they stay wherever you keep them.</p>
+
+  <h2>When data leaves your computer</h2>
+  <p>Data is sent only in these cases, and only when you start the action:</p>
+  <ul>
+    <li><b>The visa website.</b> When you fill a page, the extension types your saved details into the official form at
+    indianvisa-bangladesh.nic.in. You submit the form yourself: the captcha and the final submit are always done by you.</li>
+    <li><b>Optional AI features.</b> "Scan with AI" and "Find hotels" work only after you add your own API key for an AI
+    service you choose (Anthropic, or an OpenAI-compatible service such as River AI, OpenAI, OpenRouter, Google Gemini, or a
+    local Ollama). When you use them, the image you scan, or the city you search for hotels, is sent directly from your
+    browser to that service. That service's own privacy policy applies. If you do not add a key, nothing is sent to any
+    AI service. The normal "Scan passport" button uses the server scan or "This computer only", as you choose (below).</li>
+    <li><b>Server passport scan (optional).</b> If you choose "Server scan" for passports, the passport image is sent to
+    the Visa Helper server at ivh.techistbd.com, where a text reader (OCR) on that server reads it and returns the text.
+    No AI service or other company is involved. The image is read in memory and not stored, and there is no log of it;
+    only a daily count per connection is kept (from a one-way code of the address, not the address). "This computer
+    only" scans never leave your computer.</li>
+    <li><b>Helper AI (invited users only).</b> If someone gave you a personal access code and you choose "Helper AI"
+    in Settings, the image you scan (or the city you search for hotels) is sent to the helper server at
+    ivh.techistbd.com, which passes it to River AI and returns the answer. The server does not store images or answers;
+    it keeps only a count of requests per access code and month, to apply the monthly limit.</li>
+    <li><b>Agency sync (optional, invited users only).</b> If you use "Agency sync", your applicant list (without
+    documents and PDFs) is encrypted on your computer with your agency password and then stored on ivh.techistbd.com so
+    your other computers can download it. The server cannot read it: the password never leaves your computers.</li>
+    <li><b>Hotel search.</b> "Find hotels" sends only the city you type to ivh.techistbd.com. The server looks up hotels
+    in OpenStreetMap, on the hotels' own websites and with Google Places, using only that city name. No applicant data is
+    sent; only a daily count per connection is kept.</li>
+    <li><b>Directory.</b> The Hotels and Hospitals "Directory" button downloads a public list of checked places from
+    ivh.techistbd.com. Nothing is sent.</li>
+    <li><b>Form updates.</b> About once an hour while you use the visa site, the extension downloads a small public list
+    of the visa form's field names from ivh.techistbd.com, so it keeps working when the site renames a field. No personal
+    data is sent with this request, and the server does not keep a log of it.</li>
+  </ul>
+  <p>Your API key and Helper AI access code are stored only in your browser. They are never included in backups.
+  Backups can be locked with a password; the "Lock with a PIN" setting hides the panel on shared computers.</p>
+  <p>The applicant details form at ivh.techistbd.com/family works only on your phone: it makes a file for you to send,
+  and uploads nothing.</p>
+
+  <h2>What the developer does not do</h2>
+  <ul>
+    <li>We do not sell or share your data with anyone.</li>
+    <li>We do not use your data for advertising, credit checks or any purpose other than filling your visa application.</li>
+    <li>We do not use your data to train AI models.</li>
+  </ul>
+  <p>The use of information received from Google APIs follows the
+  <a href="https://developer.chrome.com/docs/webstore/program-policies/limited-use">Chrome Web Store User Data Policy</a>,
+  including the Limited Use requirements.</p>
+
+  <h2>Permissions</h2>
+  <ul>
+    <li><b>Storage:</b> to keep your applicants, hotels and settings on your computer.</li>
+    <li><b>Side panel:</b> to show the helper next to the visa website.</li>
+    <li><b>Access to indianvisa-bangladesh.nic.in:</b> to fill the visa form pages.</li>
+    <li><b>Access to an AI service (optional):</b> asked for only when you set up that service.</li>
+  </ul>
+
+  <h2>Children</h2>
+  <p>Parents or guardians may enter a child's details to apply for that child's visa. The data is handled exactly as
+  described above.</p>
+
+  <h2>Changes</h2>
+  <p>If this policy changes, the new version will be posted on this page with a new date.</p>
+
+  <h2>Contact</h2>
+  <p>Questions: <a href="mailto:__CONTACT_EMAIL__">__CONTACT_EMAIL__</a></p>
+
+  <h2 class="bn">সংক্ষেপে (বাংলা)</h2>
+  <p class="bn">এই এক্সটেনশন আপনার সব তথ্য শুধু আপনার নিজের ব্রাউজারে রাখে। ডেভেলপারের কোনো সার্ভার নেই, আমরা আপনার কোনো তথ্য পাই না
+  বা দেখি না। তথ্য শুধু ভিসার ওয়েবসাইটে যায়, যখন আপনি ফর্ম পূরণ করেন। AI ফিচার ঐচ্ছিক: আপনি নিজের API কী দিলে তবেই স্ক্যান করা ছবি
+  আপনার বাছাই করা AI সেবায় সরাসরি যায়। এটি একটি অনানুষ্ঠানিক টুল; ভারত সরকার বা IVAC-এর সঙ্গে যুক্ত নয়।</p>
+</main>
+</body>
+</html>

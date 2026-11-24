@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Video card</title>
+<!-- 1920×1080 title cards for the promo video: card.html?n=intro or ?n=outro. -->
+<style>
+  html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; }
+  body { font-family: system-ui, -apple-system, "Segoe UI", "Noto Sans Bengali", sans-serif; color: #fff;
+    background: radial-gradient(1700px 1000px at 0% 0%, #1f6fd1 0%, #0b3d82 55%, #082a5c 100%);
+    display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+  img { width: 128px; height: 128px; margin-bottom: 36px; }
+  .tag { font-size: 30px; background: rgba(255,255,255,.16); padding: 10px 26px; border-radius: 999px; margin-bottom: 34px; }
+  h1 { font-size: 104px; line-height: 1.08; margin: 0 0 30px; font-weight: 750; }
+  p { margin: 0; font-size: 40px; color: #cfe0f8; }
+  .small { margin-top: 56px; font-size: 26px; color: #a9c1e6; }
+</style>
+</head>
+<body>
+<script>
+  const outro = new URLSearchParams(location.search).get('n') === 'outro';
+  document.body.innerHTML = outro
+    ? `<img src="/extension/icons/icon128.png" alt=""><h1>Indian Visa Form Helper</h1>
+       <p>Add it to Chrome from the Chrome Web Store</p>
+       <div class="small">Unofficial tool · not linked to the Government of India or IVAC</div>`
+    : `<img src="/extension/icons/icon128.png" alt=""><span class="tag">Bangladesh · Tourist & Medical visas</span>
+       <h1>Fill the Indian visa form<br>in minutes</h1><p>A Chrome extension for families and agencies</p>`;
+</script>
+</body>
+</html>

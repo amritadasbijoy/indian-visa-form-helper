@@ -1,0 +1,21 @@
+[Unit]
+Description=Indian Visa Form Helper server (ivh.techistbd.com)
+After=network-online.target tailscaled.service
+Wants=network-online.target
+
+[Service]
+User=ivh
+Group=ivh
+WorkingDirectory=/opt/ivh
+EnvironmentFile=/opt/ivh/.env
+ExecStart=/usr/bin/node /opt/ivh/server.mjs
+Restart=always
+RestartSec=5
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+ReadWritePaths=/opt/ivh/data
+
+[Install]
+WantedBy=multi-user.target

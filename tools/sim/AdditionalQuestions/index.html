@@ -1,0 +1,36 @@
+<!doctype html>
+<!-- Dev-only stand-in for the visa site's "AdditionalQuestions" page (6 Yes/No questions + declaration), from the
+     owner's screenshot of the live page (Nov 2026). Radio ids question_yes_N / question_no_N as in pages.js. -->
+<html><head><meta charset="utf-8"><title>Sim AdditionalQuestions</title>
+<link rel="stylesheet" href="/extension/content/content.css">
+<script src="/tools/chrome-mock.js"></script></head><body>
+<p>Temporary Application ID : SIMTEST0000001</p>
+<form id="f" onsubmit="if(!document.getElementById('dcl').checked){alert('Please tick the declaration');return false;} location.search='?saved=1'; return false;">
+<table>
+<tr><td>1</td><td>Have you ever been arrested/ prosecuted/ convicted by Court of Law of any country?*</td><td><input type="radio" name="q1" id="question_yes_1">Yes <input type="radio" name="q1" id="question_no_1">No</td></tr>
+<tr><td>2</td><td>Have you ever been refused entry / deported by any country including India?*</td><td><input type="radio" name="q2" id="question_yes_2">Yes <input type="radio" name="q2" id="question_no_2">No</td></tr>
+<tr><td>3</td><td>Human trafficking …?*</td><td><input type="radio" name="q3" id="question_yes_3">Yes <input type="radio" name="q3" id="question_no_3">No</td></tr>
+<tr><td>4</td><td>Cyber crime …?*</td><td><input type="radio" name="q4" id="question_yes_4">Yes <input type="radio" name="q4" id="question_no_4">No</td></tr>
+<tr><td>5</td><td>Expressed views …?*</td><td><input type="radio" name="q5" id="question_yes_5">Yes <input type="radio" name="q5" id="question_no_5">No</td></tr>
+<tr><td>6</td><td>Have you sought asylum (political or otherwise)in any country?*</td><td><input type="radio" name="q6" id="question_yes_6">Yes <input type="radio" name="q6" id="question_no_6">No</td></tr>
+</table>
+<p><input type="checkbox" id="dcl" name="declaration"> <b>I <i>RINA</i>, hereby declare that the information furnished above is correct to the best of my knowledge and belief.</b></p>
+<input type="submit" value="Save and Continue"> <input type="button" value="Save and Temporarily Exit">
+</form>
+<script>
+  // A session for the example applicant, unless the test set one already.
+  const d = JSON.parse(localStorage.getItem('ivh-mock') || '{}');
+  if (!d.session?.active) {
+    d.profiles = d.profiles || [{ id: 'p1', surname: 'DAS', givenName: 'RINA', passportExpiry: '2032-05-09' }];
+    d.settings = { autoAdvance: true, delayMs: 1200, ...(d.settings || {}) };
+    d.session = { active: true, profileId: d.profiles[0].id, tempId: 'SIMTEST0000001', startedAt: Date.now() };
+    localStorage.setItem('ivh-mock', JSON.stringify(d));
+  }
+</script>
+<script src="/extension/shared/constants.js"></script>
+<script src="/extension/shared/util.js"></script>
+<script src="/extension/shared/i18n.js"></script>
+<script src="/extension/content/pages.js"></script>
+<script src="/extension/content/bridge.js"></script>
+<script src="/extension/content/content.js"></script>
+</body></html>

@@ -1,0 +1,21 @@
+# Never published (personal or third-party data)
+tools/tmp-real/
+competitor/
+FEEDBACK.md
+
+# Build output and dependencies
+dist/
+node_modules/
+
+# Server data and secrets (they live only on the VPS)
+server/data/
+.env
+*.env
+!.env.example
+*.key
+*.pem
+server/public/privacy.html
+
+# Local machine files
+.DS_Store
+.claude/settings.local.json

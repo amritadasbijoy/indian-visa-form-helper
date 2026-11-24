@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <base href="/extension/sidepanel/">
+  <script src="/tools/chrome-mock.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Indian Visa Helper</title>
+  <link rel="stylesheet" href="sidepanel.css">
+</head>
+<body>
+  <header class="top">
+    <span class="logo"></span>
+    <h1><span data-i18n="appName">Indian Visa Helper</span> <small id="version" class="ver"></small></h1>
+    <button id="langToggle" class="ghost" title="Language">বাংলা</button>
+  </header>
+
+  <nav class="tabs" role="tablist">
+    <button data-tab="start" class="on" data-i18n="tabStart">Start</button>
+    <button data-tab="profiles" data-i18n="tabApplicants">Applicants</button>
+    <button data-tab="hotels" data-i18n="tabHotels">Hotels</button>
+    <button data-tab="hospitals" data-i18n="tabHospitals">Hospitals</button>
+    <button data-tab="contacts" data-i18n="tabContacts">References</button>
+    <button data-tab="settings" data-i18n="tabSettings">Settings</button>
+  </nav>
+
+  <main>
+    <section id="tab-start" class="tab on"></section>
+    <section id="tab-profiles" class="tab"></section>
+    <section id="tab-hotels" class="tab"></section>
+    <section id="tab-hospitals" class="tab"></section>
+    <section id="tab-contacts" class="tab"></section>
+    <section id="tab-settings" class="tab"></section>
+  </main>
+
+  <div id="toast" class="toast" hidden></div>
+  <input type="file" id="filePick" hidden>
+
+  <script src="../lib/tesseract/tesseract.min.js"></script>
+  <script src="../shared/constants.js"></script>
+  <script src="../shared/util.js"></script>
+  <script src="../shared/i18n.js"></script>
+  <script src="../shared/schema.js"></script>
+  <script src="../shared/preflight.js"></script>
+  <script type="module" src="sidepanel.js"></script>
+</body>
+</html>

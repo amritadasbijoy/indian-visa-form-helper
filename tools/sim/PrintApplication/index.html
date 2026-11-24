@@ -1,0 +1,36 @@
+<!doctype html>
+<!-- Dev-only stand-in for the site's "Print Registered Application" page (field ids from the live site, Nov 2026).
+     The POST is answered by a stub: captcha ABC123 returns a PDF (the bundled undertaking form), anything else
+     returns the form again with an error message and a new token. -->
+<html><head><meta charset="utf-8"><title>Sim PrintApplication</title>
+<script src="/tools/chrome-mock.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script></head><body>
+<form action="PrintApplication" method="post" onsubmit="return validate_reprint_form();">
+<input name="appl.visa_type" id="visa_type1" type="radio" value="etv"> eTV <input name="appl.visa_type" type="radio" id="visa_type2" value="regular_visa"> Regular<br>
+<select name="appl.missioncode" id="missioncode_id_reprint"><option value="">Select Mission</option><option value="BGDC">BANGLADESH-CHITTAGONG</option><option value="BGDD">BANGLADESH-DHAKA</option><option value="BGDK">BANGLADESH-KHULNA</option><option value="BGDR">BANGLADESH-RAJSHAHI</option><option value="BGDS">BANGLADESH-SYLHET</option></select><br>
+<input name="appl.filerfno" type="text" maxlength="12" id="application_id"><br>
+<input name="appl.birthdate" type="text" id="dob_id"><br>
+<input name="appl.passport_number" type="text" maxlength="14" id="passport_no"><br>
+<input type="text" name="captcha" id="captcha" maxlength="6"><br>
+<input name="submit_btn" type="submit" value="Reprint">
+<input type="hidden" name="token" value="tok-1">
+</form>
+<script>
+window.validate_reprint_form = () => document.getElementById('application_id').value.length === 12;
+window.refreshCaptcha = () => { window.captchaRefreshed = (window.captchaRefreshed || 0) + 1; };
+const realFetch = window.fetch;
+window.lastBody = null;
+window.fetch = async (url, opt) => {
+  if (!String(url).includes('PrintApplication')) return realFetch(url, opt);
+  window.lastBody = String(opt.body);
+  if (new URLSearchParams(opt.body).get('captcha') === 'ABC123') return realFetch('/extension/assets/ivac-visa-undertaking.pdf');
+  return new Response('<html><body><form action="PrintApplication"><span style="color:red">Invalid Captcha</span><input type="hidden" name="token" value="tok-2"></form></body></html>', { headers: { 'content-type': 'text/html' } });
+};
+</script>
+<script src="/extension/shared/constants.js"></script>
+<script src="/extension/shared/util.js"></script>
+<script src="/extension/shared/i18n.js"></script>
+<script src="/extension/content/pages.js"></script>
+<script src="/extension/content/bridge.js"></script>
+<script src="/extension/content/content.js"></script>
+</body></html>

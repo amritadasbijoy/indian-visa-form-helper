@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Store screenshot</title>
+<!-- 1280×800 store screenshot: a headline on the left and the real side panel (panel harness + made-up data) on the right.
+     Open as /store/shots/shot.html?n=1 … 4 from the project's local server. -->
+<script src="seed.js"></script>
+<style>
+  html, body { margin: 0; width: 1280px; height: 800px; overflow: hidden; }
+  body { font-family: system-ui, -apple-system, "Segoe UI", "Noto Sans Bengali", sans-serif; color: #fff;
+    background: radial-gradient(1200px 700px at 0% 0%, #1f6fd1 0%, #0b3d82 55%, #082a5c 100%); display: flex; align-items: center; }
+  .copy { width: 640px; padding: 0 40px 0 88px; box-sizing: border-box; }
+  .tag { display: inline-block; font-size: 15px; letter-spacing: .04em; background: rgba(255,255,255,.16); padding: 6px 12px; border-radius: 999px; margin-bottom: 22px; }
+  h1 { font-size: 46px; line-height: 1.15; margin: 0 0 22px; font-weight: 750; }
+  ul { margin: 0; padding: 0; list-style: none; font-size: 21px; line-height: 1.5; color: #dce8fb; }
+  li { padding-left: 34px; position: relative; margin-bottom: 12px; }
+  li::before { content: "✓"; position: absolute; left: 0; color: #8fd18b; font-weight: 700; }
+  .note { margin-top: 30px; font-size: 14px; color: #a9c1e6; }
+  .frame { width: 440px; height: 740px; margin-left: 70px; border-radius: 18px; overflow: hidden; background: #fff;
+    box-shadow: 0 30px 70px rgba(0,0,0,.4), 0 0 0 1px rgba(255,255,255,.2); }
+  iframe { width: 440px; height: 740px; border: 0; display: block; }
+</style>
+</head>
+<body>
+<div class="copy"><span class="tag" id="tag"></span><h1 id="title"></h1><ul id="points"></ul><div class="note" id="note"></div></div>
+<div class="frame"><iframe id="panel"></iframe></div>
+<script>
+  const n = new URLSearchParams(location.search).get('n') || '1';
+  const SHOTS = {
+    1: { tab: 'start', tag: 'Indian visa · Bangladesh', title: 'Fill the Indian visa form in minutes',
+         points: ['Every page filled from saved details', 'Tourist and Medical visas', 'All five missions in Bangladesh'] },
+    2: { tab: 'profiles', tag: 'Families and agencies', title: 'Enter each applicant once. Reuse every time.',
+         points: ['Passport scan reads the details', 'Photo and PDFs made the right size', 'Hotels, hospitals and references saved'] },
+    3: { tab: 'start', scroll: 'history', tag: 'After you submit', title: 'Keep track of every application',
+         points: ['Application PDF saved for each person', 'Visa status in one click', 'Resume an unfinished form'] },
+    4: { tab: 'start', lang: 'bn', tag: 'বাংলা ও English', title: 'বাংলা ও ইংরেজি — দুই ভাষাতেই',
+         points: ['ক্যাপচা ও চূড়ান্ত সাবমিট আপনার হাতে', 'সব তথ্য আপনার নিজের কম্পিউটারে', 'কোনো অ্যাকাউন্ট বা ট্র্যাকিং নেই'] },
+  };
+  const s = SHOTS[n];
+  if (s.lang === 'bn') { const d = JSON.parse(localStorage.getItem('ivh-mock')); d.settings.lang = 'bn'; localStorage.setItem('ivh-mock', JSON.stringify(d)); }
+  document.getElementById('tag').textContent = s.tag;
+  document.getElementById('title').textContent = s.title;
+  document.getElementById('points').append(...s.points.map(p => Object.assign(document.createElement('li'), { textContent: p })));
+  document.getElementById('note').textContent = 'Unofficial tool · made-up example data';
+  const f = document.getElementById('panel');
+  f.onload = () => setTimeout(() => {
+    const d = f.contentDocument;
+    d.querySelector(`[data-tab=${s.tab}]`)?.click();
+    if (s.scroll) setTimeout(() => {
+      const el = [...d.querySelectorAll('h2,h3,.card b,.card .t')].find(x => /history|ইতিহাস/i.test(x.textContent));
+      (el?.closest('.card') || el)?.scrollIntoView({ block: 'start' });
+    }, 400);
+  }, 600);
+  f.src = '/tools/panel-harness.html?v=shot' + n;
+</script>
+</body>
+</html>
